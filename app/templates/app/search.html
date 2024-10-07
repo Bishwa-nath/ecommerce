@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+<div class="row my-5">
+	{% if product %}
+		{% for prod in product %}
+			<div class="col-sm-4 text-center mb-3 hover-shadow hover-card">
+				<a href="{% url "product-detail" prod.id %}" class="btn">
+					<img src="{{prod.product_image.url}}" class="img-fluid" height="350" width="350"/>
+					<div class="fw-bold">{{prod.title}}</div>
+					<div class="fw-bold text-danger">BDT: {{ prod.discounted_price }}/-</div>
+					<small class="fs-10 text-decoration-line-through text-muted">
+						<del>BDT: {{ prod.selling_price }}/-</del>
+					</small>
+				</a>
+			</div>
+		{% endfor %}
+	{% else %}
+	<div class="text-center">
+		<h4 class="text-danger">Opps! No Product Found.</h4> <br>
+		<iframe src="https://giphy.com/embed/CoND5j6Bn1QZUgm1xX" width="150" height="150" style="" frameBorder="0" class="giphy-embed rounded rounded-4" allowFullScreen></iframe>
+	</div>
+	{% endif %}
+</div>
+{% endblock content %}

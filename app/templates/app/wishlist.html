@@ -1,0 +1,23 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Orders{% endblock title %}
+
+{% block content %}
+<div class="row my-3">
+	<h3>Wishlist</h3> <hr>
+	<div class="row">
+		{% for prod in product %}
+			<div class="col-sm-3 text-center mb-3 hover-shadow hover-card">
+				<a href="{% url "product-detail" prod.product.id %}" class="btn">
+					<img src="{{prod.product.product_image.url}}" class="img-fluid" height="350" width="350"/>
+					<div class="fw-bold">{{prod.product.title}}</div>
+					<div class="fw-bold text-danger">BDT: {{ prod.product.discounted_price }}/-</div>
+					<small class="fs-10 text-decoration-line-through text-muted">
+						<del>BDT: {{ prod.product.selling_price }}/-</del>
+					</small>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock content %}

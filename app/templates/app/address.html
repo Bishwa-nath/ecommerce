@@ -1,0 +1,48 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<div class="row my-3">
+    <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3> <hr>
+    <div class="col-sm-2 border-end">
+        <ul class="list-unstyled">
+            <li class="d-grid"><a href="{% url "profile" %}" class="btn">Profile</a></li>
+            <li class="d-grid"><a href="{% url "address" %}" class="btn btn-primary">Address</a></li>
+            <li class="d-grid"><a href="{% url "passwordchange" %}" class="btn">Change Password</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-8 offset-sm-1">
+        <div class="row">
+            {% if address %}
+                {% for addr in address %}
+                    <div class="col-sm-6">
+                        <div class="card m-1">
+                            <div class="card-body">
+                                <h4 class="card-title">Address {{forloop.counter}}</h4><hr>
+                                <h6 class="card-text">Name: {{addr.name}}</h6>
+                                <p class="card-text">City: {{addr.city}}</p>
+                                <p class="card-text">Zipcode: {{addr.zipcode}}</p>
+                                <p class="card-text">Phone: +880{{addr.mobile}}</p>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <a href="{% url "update-address" addr.id %}" class="btn btn-primary">Update</a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="text-center">
+                <h3>Opps!</h3>
+                <h4>No Address Found.</h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

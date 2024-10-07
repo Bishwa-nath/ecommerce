@@ -1,0 +1,106 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="{% static "app/images/logo.png" %}" alt="Company Logo" width="60", height="55">
+        </a>
+        <button
+            class="navbar-toggler d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url "home" %}" aria-current="page">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle text-white"
+                        href="#"
+                        id="dropdownId"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >Products</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a>
+                        <a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a>
+                        <a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a>
+                        <a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-cream</a>
+                        <a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a>
+                        <a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a>
+                        <a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a>
+                        <a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+            </ul>
+            <form class="d-flex my-2 my-lg-0" role="search" action="/search">
+                <input
+                    class="form-control me-sm-2"
+                    type="text"
+                    placeholder="Search"
+                    name="search"
+                    aria-label="Search"
+                />
+                <button
+                    class="btn btn-outline-dark text-white my-2 my-sm-0"
+                    type="submit"
+                >
+                    Search
+                </button>
+            </form>
+        </div>
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0 ms-2">
+            <li class="nav-item dropdown">
+                <a
+                    class="nav-link dropdown-toggle text-white"
+                    href="#"
+                    id="dropdownId"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >{{request.user}}</a>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="{% url "profile" %}">Profile</a>
+                    <a class="dropdown-item" href="{% url "orders" %}">Orders</a>
+                    <a class="dropdown-item" href="{% url "logout" %}">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="{% url "showcart" %}">
+                    Cart <span class="badge bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span>
+                </a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="{% url "wish-list" %}" data-toggle="tooltip" data-placement="top" title="Wishlist">
+                    <i class="fa fa-heart"></i>
+                    <span class="badge bg-danger">{% if wishlist > 0 %}{{wishlist}}{% endif %}</span>
+                </a>
+            </li>
+            {% else %}
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="{% url "login" %}">Login</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="{% url 'customer-registration' %}">Registration</a>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </div>
+</nav>
